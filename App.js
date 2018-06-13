@@ -5,8 +5,10 @@ import {
   Text,
   ScrollView,
   FlatList,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
+import Appointment from './src/components/Appointment'
 
 
 export default class App extends Component {
@@ -15,38 +17,30 @@ export default class App extends Component {
     super()
     this.state = {
       tarefas: [],
-      msg: ''
+      msg: '',
+      hour: '20h'
     }
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/tasks')
+    return fetch('http://10.20.105.206:3000/tasks')
       .then(res => res.json())
       .then(json => this.setState({
         tarefas: json
+        // msg: 'entrou no segundo then!!!'
       }))
       .catch(erro => {
         this.setState({
-          msg: 'entrou na msg'
+          msg: 'entrou na msg de erro'
         })
       })
   }
 
+  onPress = () => {
+    alert('clicooo')
+  }
+
   render() {
-    const compromissos = [
-      {
-        id: 1,
-        dia: '12',
-        mes: 'mar',
-        descricao: 'Criar app React Native'
-      },
-      {
-        id: 1,
-        dia: '13',
-        mes: 'mar',
-        descricao: 'Usar API do Node pra nossa App '
-      }
-    ]
 
     return (
       <ScrollView style={styles.container}>
@@ -55,43 +49,28 @@ export default class App extends Component {
         </Text>
 
         <FlatList style={styles.list}
-          keyExtractor={item => item.id}
-          data={compromissos}
-          renderItem={({ item }) =>
-
-            <View style={styles.dayComplete}>
-              <View style={styles.dayAndMonth}>
-                <Text style={styles.day}>{item.dia}</Text>
-                <Text>{item.mes}</Text>
-              </View>
-
-              <View style={styles.description}>
-                <Text>{item.descricao}</Text>
-              </View>
-
-            </View>
-          }
-        />
-
-        <FlatList style={styles.list}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           data={this.state.tarefas}
           renderItem={({ item }) =>
 
-            <View>
+            <Appointment name={item.name} status={item.status} />
 
-              <Text style={styles.day}>{item.status.name}</Text>
-
-            </View>
           }
         />
 
-        <Text style={styles.day}>{this.state.msg}</Text>
+        <TouchableOpacity style={styles.buttonPrimary}
+          onPress={this.onPress}>
+          <Text style={styles.textButton}>Novo Compromisso</Text>
+        </TouchableOpacity>
+
+
+        {/* <Text style={styles.day}>{this.state.msg}</Text> */}
 
       </ScrollView>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -119,12 +98,48 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold'
   },
-  description: {
-    flex: 1,
-    borderWidth: 2,
-    borderColor: 'red',
-    borderRadius: 5,
-    padding: 10,
-    fontSize: 40,
+  buttonPrimary: {
+    padding: 20,
+    margin: 15,
+    backgroundColor: 'teal'
+  },
+  textButton: {
+    color: 'white',
+    textAlign: 'center'
   }
 });
+
+
+// const compromissos = [
+//   {
+//     id: 1,
+//     dia: '12',
+//     mes: 'mar',
+//     descricao: 'Criar app React Native'
+//   },
+//   {
+//     id: 1,
+//     dia: '13',
+//     mes: 'mar',
+//     descricao: 'Usar API do Node pra nossa App '
+//   }
+// ]
+
+// <FlatList style={styles.list}
+//           keyExtractor={item => item.id}
+//           data={compromissos}
+//           renderItem={({ item }) =>
+
+//             <View style={styles.dayComplete}>
+//               <View style={styles.dayAndMonth}>
+//                 <Text style={styles.day}>{item.dia}</Text>
+//                 <Text>{item.mes}</Text>
+//               </View>
+
+//               <View style={styles.description}>
+//                 <Text>{item.descricao}</Text>
+//               </View>
+
+//             </View>
+//           }
+//         /> 
