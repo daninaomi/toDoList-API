@@ -10,6 +10,28 @@ import {
 
 
 export default class App extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      tarefas: [],
+      msg: ''
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/tasks')
+      .then(res => res.json())
+      .then(json => this.setState({
+        tarefas: json
+      }))
+      .catch(erro => {
+        this.setState({
+          msg: 'entrou na msg'
+        })
+      })
+  }
+
   render() {
     const compromissos = [
       {
@@ -51,7 +73,20 @@ export default class App extends Component {
           }
         />
 
+        <FlatList style={styles.list}
+          keyExtractor={item => item.id}
+          data={this.state.tarefas}
+          renderItem={({ item }) =>
 
+            <View>
+
+              <Text style={styles.day}>{item.status.name}</Text>
+
+            </View>
+          }
+        />
+
+        <Text style={styles.day}>{this.state.msg}</Text>
 
       </ScrollView>
     );
@@ -86,9 +121,10 @@ const styles = StyleSheet.create({
   },
   description: {
     flex: 1,
-    fontSize: 40,
     borderWidth: 2,
     borderColor: 'red',
-    borderRadius: 5 
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 40,
   }
 });
