@@ -1,58 +1,94 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
+  ScrollView,
+  FlatList,
   View
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
+    const compromissos = [
+      {
+        id: 1,
+        dia: '12',
+        mes: 'mar',
+        descricao: 'Criar app React Native'
+      },
+      {
+        id: 1,
+        dia: '13',
+        mes: 'mar',
+        descricao: 'Usar API do Node pra nossa App '
+      }
+    ]
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Bem-vindo(a) !
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+
+        <FlatList style={styles.list}
+          keyExtractor={item => item.id}
+          data={compromissos}
+          renderItem={({ item }) =>
+
+            <View style={styles.dayComplete}>
+              <View style={styles.dayAndMonth}>
+                <Text style={styles.day}>{item.dia}</Text>
+                <Text>{item.mes}</Text>
+              </View>
+
+              <View style={styles.description}>
+                <Text>{item.descricao}</Text>
+              </View>
+
+            </View>
+          }
+        />
+
+
+
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    fontSize: 30,
+    margin: 15,
+    marginTop: 50,
+    color: 'grey'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  list: {
+    margin: 15
   },
+  dayComplete: {
+    display: 'flex'
+  },
+  dayAndMonth: {
+    width: 50
+  },
+  day: {
+    fontSize: 40,
+    fontWeight: 'bold'
+  },
+  description: {
+    flex: 1,
+    fontSize: 40,
+    borderWidth: 2,
+    borderColor: 'red',
+    borderRadius: 5 
+  }
 });
