@@ -12,19 +12,15 @@ import {
 export default class Appointment extends Component {
     
     render() {
-        const appointment = {
-            // hour: '18:00',
-            // name: 'Exercícios de física',
-            tag: 'Tarefa' 
-        }
 
         const { name, status } = this.props
 
         return (
             <View style={styles.description}>
+            
                 <Text style={styles.title}>{name}</Text>
                 <Text>{status}</Text>
-                {/* <Text>{appointment.hour}</Text> */}
+                
             </View>
         )
     }
