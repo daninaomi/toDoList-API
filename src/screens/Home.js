@@ -8,7 +8,6 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-// import { createStackNavigator } from 'react-navigation';
 import Appointment from '../components/Appointment'
 
 

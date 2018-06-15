@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 import Home from './src/screens/Home'
 import AddAppointment from './src/screens/AddAppointment'
+import Login from './src/screens/Login'
+
 
 class HomeScreen extends Component {
 
@@ -29,13 +31,26 @@ class AddAppointmentScreen extends Component {
     }
 }
 
+class LoginScreen extends Component {
+    navegarTela = () => {
+        this.props.navigation.push('HomeScreen')
+    }
+
+    render() {
+        return (
+            <Login mudarTela={this.navegarTela} />
+        )
+    }
+}
+
 const RootStack = createStackNavigator(
     {
         HomeScreen: HomeScreen,
-        AddAppointmentScreen: AddAppointmentScreen
+        AddAppointmentScreen: AddAppointmentScreen,
+        LoginScreen: LoginScreen
     },
     {
-        initialRouteName: 'HomeScreen',
+        initialRouteName: 'LoginScreen',
     }
 );
 

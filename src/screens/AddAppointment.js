@@ -24,7 +24,7 @@ export default class Home extends Component {
         // const data = {
         //     name: this.state.name,
         //     status: this.state.status
-        // }
+        // 
 
         return fetch('http://10.20.104.49:3000/tasks', {
             method: 'POST',
