@@ -1,12 +1,12 @@
 
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  FlatList,
-  View,
-  TouchableOpacity
+    StyleSheet,
+    Text,
+    ScrollView,
+    FlatList,
+    View,
+    TouchableOpacity
 } from 'react-native';
 // import { createStackNavigator } from 'react-navigation';
 import Appointment from '../components/Appointment'
@@ -14,63 +14,84 @@ import Appointment from '../components/Appointment'
 
 export default class Home extends Component {
 
-  constructor() {
-    super()
-    this.state = {
-      tarefas: [],
-      msg: '',
-      hour: '20h'
+    constructor() {
+        super()
+        this.state = {
+            tarefas: [],
+            msg: ''
+        }
     }
-  }
 
-  componentDidMount() {
-    return fetch('http://10.20.105.240:3000/tasks')
-      .then(res => res.json())
-      .then(json => this.setState({
-        tarefas: json
-        // msg: 'entrou no segundo then!!!'
-      }))
-      .catch(erro => {
-        this.setState({
-          msg: 'entrou na msg de erro'
+    componentDidMount() {
+        return fetch('http://10.20.104.49:3000/tasks')
+            .then(res => res.json())
+            .then(json => this.setState({
+                tarefas: json
+                // msg: 'entrou no segundo then!!!'
+            }))
+            .catch(erro => {
+                this.setState({
+                    msg: 'entrou na msg de erro'
+                })
+            })
+    }
+    
+
+    deletaItem = (idAppointment) => {
+        fetch(`http://10.20.104.49:3000/tasks/${idAppointment}`, {
+            method: 'DELETE'
         })
-      })
-  }
+            .then(res => res.json())
+            .then(respostaPronta => {
 
-  onPress = () => {
-    // alert('clicooo')
-    this.props.navigation.navigate('AddAppointment')
-  }
+                const listaNova = this.state.tarefas.filter(tarefa => {
+                    return tarefa._id !== idAppointment
+                })
 
-  render() {
+                this.setState({
+                    tarefas: listaNova,
+                    msg: 'filtroo'
+                })
+            })
+            .catch(erro => {
+                this.setState({
+                    msg: 'entrou na msg de erro'
+                })
+            })
+    }
 
-    return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.welcome}>
-          Bem-vindo(a) !
-        </Text>
+    render() {
 
-        <FlatList style={styles.list}
-          keyExtractor={item => item._id}
-          data={this.state.tarefas}
-          renderItem={({ item }) =>
+        return (
+            <ScrollView style={styles.container}>
+                <Text style={styles.welcome}>
+                    Bem-vindo(a) !
+                </Text>
 
-            <Appointment name={item.name} status={item.status} />
+                <FlatList style={styles.list}
+                    keyExtractor={item => item._id}
+                    data={this.state.tarefas}
+                    renderItem={({ item }) =>
 
-          }
-        />
+                        <Appointment
+                            name={item.name}
+                            status={item.status}
+                            deletaItem={() => this.deletaItem(item._id)} />
 
-        <TouchableOpacity style={styles.buttonPrimary}
-          onPress={this.onPress}>
-          <Text style={styles.textButton}>Novo Compromisso</Text>
-        </TouchableOpacity>
+                    }
+                />
+
+                <TouchableOpacity style={styles.buttonPrimary}
+                    onPress={this.props.mudarTela}>
+                    <Text style={styles.textButton}>Novo Compromisso</Text>
+                </TouchableOpacity>
 
 
-        {/* <Text style={styles.day}>{this.state.msg}</Text> */}
+                <Text style={styles.day}>{this.state.msg}</Text>
 
-      </ScrollView>
-    );
-  }
+            </ScrollView>
+        );
+    }
 }
 
 // export default createStackNavigator({
@@ -80,41 +101,39 @@ export default class Home extends Component {
 //   });
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 30,
-    margin: 15,
-    marginTop: 50,
-    color: 'grey'
-  },
-  list: {
-    margin: 15
-  },
-  dayComplete: {
-    display: 'flex'
-  },
-  dayAndMonth: {
-    width: 50
-  },
-  day: {
-    fontSize: 40,
-    fontWeight: 'bold'
-  },
-  buttonPrimary: {
-    padding: 20,
-    margin: 15,
-    borderRadius: 10,
-    backgroundColor: 'teal'
-  },
-  textButton: {
-    color: 'white',
-    textAlign: 'center'
-  }
+    container: {
+        backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+        fontSize: 30,
+        margin: 15,
+        marginTop: 50,
+        color: 'grey'
+    },
+    list: {
+        margin: 15
+    },
+    dayComplete: {
+        display: 'flex'
+    },
+    dayAndMonth: {
+        width: 50
+    },
+    day: {
+        fontSize: 40,
+        fontWeight: 'bold'
+    },
+    buttonPrimary: {
+        padding: 20,
+        margin: 15,
+        borderRadius: 10,
+        backgroundColor: 'teal'
+    },
+    textButton: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 20
+    }
 });
 
 

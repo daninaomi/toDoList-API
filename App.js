@@ -1,12 +1,6 @@
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View
-} from 'react-native';
-// import { createStackNavigator } from 'react-navigation';
-import Home from './src/screens/Home'
-import AddAppointment from './src/screens/AddAppointment'
+import Routes from './Routes'
 
 
 export default class App extends Component {
@@ -14,24 +8,12 @@ export default class App extends Component {
   render() {
 
     return (
-      <View>
-
-        <Home />
-        {/* <AddAppointment /> */}
-
-      </View>
+      <Routes />
     );
   }
 }
 
-// const RootStack = createStackNavigator(
-//   {
-//     Home: Home
-//   },
-//   {
-//     initialRouteName: 'Home',
-//   }
-// );
+
 
 
 // import { Navigation } from 'react-native-navigation';

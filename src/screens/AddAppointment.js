@@ -26,7 +26,7 @@ export default class Home extends Component {
         //     status: this.state.status
         // }
 
-        return fetch('http://10.20.105.240:3000/tasks', {
+        return fetch('http://10.20.104.49:3000/tasks', {
             method: 'POST',
             body: JSON.stringify({
                 name: this.state.name,
@@ -36,16 +36,23 @@ export default class Home extends Component {
                 "Content-type": "application/json"
             })
         })
-            .then(res => res.json())
-            .then(this.setState({
-                // tarefas: json
-                msg: 'mandouuuu'
-            }))
+            .then(res => {
+                if(!res.ok) {
+                    throw new Error('Não cadastrou')
+                }
+                return res.json()
+            })
+            // .then(json => this.setState({
+            //     tarefas: json,
+            //     msg: 'mandouuuu'
+            // }))
+            .then(() => this.props.mudarTela())
             .catch(erro => {
                 this.setState({
-                    msg: 'entrou na msg de erro'
+                    msg: erro
                 })
             })
+        // return this.props.mudarTela()
     }
 
     render() {
