@@ -6,7 +6,9 @@ import {
     ScrollView,
     FlatList,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    DrawerLayoutAndroid,
+    Image
 } from 'react-native';
 import Appointment from '../components/Appointment'
 
@@ -22,7 +24,8 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        return fetch('http://10.20.104.49:3000/tasks')
+        // return fetch('http://10.20.104.49:3000/tasks')
+        return fetch('http://192.168.1.15:3000/tasks')
             .then(res => res.json())
             .then(json => this.setState({
                 tarefas: json
@@ -34,10 +37,10 @@ export default class Home extends Component {
                 })
             })
     }
-    
+
 
     deletaItem = (idAppointment) => {
-        fetch(`http://10.20.104.49:3000/tasks/${idAppointment}`, {
+        fetch(`http://192.168.1.15:3000/tasks/${idAppointment}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -61,70 +64,98 @@ export default class Home extends Component {
 
     render() {
 
-        return (
-            <ScrollView style={styles.container}>
-                <Text style={styles.welcome}>
-                    Bem-vindo(a) !
+        const navigationView = (
+            <View>
+                <Text style={{ margin: 20, fontSize: 18, textAlign: 'left' }}
+                    onPress={this.props.profile} >
+                    Meu Perfil
                 </Text>
 
-                <FlatList style={styles.list}
-                    keyExtractor={item => item._id}
-                    data={this.state.tarefas}
-                    renderItem={({ item }) =>
+                <Text style={{ margin: 20, fontSize: 18, textAlign: 'left' }}
+                    onPress={this.props.logout} >
+                    Logout
+                </Text>
+            </View>
+        )
 
-                        <Appointment
-                            name={item.name}
-                            status={item.status}
-                            deletaItem={() => this.deletaItem(item._id)} />
+        return (
+            <DrawerLayoutAndroid
+                drawerWidth={300}
+                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                renderNavigationView={() => navigationView}>
 
-                    }
-                />
+                <ScrollView style={styles.container}>
 
-                <TouchableOpacity style={styles.buttonPrimary}
-                    onPress={this.props.mudarTela}>
-                    <Text style={styles.textButton}>Novo Compromisso</Text>
-                </TouchableOpacity>
+                    <Text style={styles.welcome}>
+                        Bem-vindo(a) !
+                    </Text>
 
+                    <FlatList style={styles.list}
+                        keyExtractor={item => item._id}
+                        data={this.state.tarefas}
+                        renderItem={({ item }) =>
 
-                <Text style={styles.day}>{this.state.msg}</Text>
+                            <Appointment
+                                name={item.name}
+                                status={item.status}
+                                deletaItem={() => this.deletaItem(item._id)} />
 
-            </ScrollView>
+                        }
+                    />
+
+                    <Text style={styles.day}>{this.state.msg}</Text>
+
+                    <TouchableOpacity style={styles.buttonPrimary}
+                        onPress={this.props.mudarTela}>
+                        <Text style={styles.textButton}>Novo Compromisso</Text>
+                    </TouchableOpacity>
+
+                </ScrollView>
+
+                {/* <View style={styles.socialButtons}>
+                    <TouchableOpacity>
+                        <Image source={require('./img/i1.png')} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <Image source={require('./img/i2.png')} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <Image source={require('./img/i3.png')} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <Image source={require('./img/i4.png')} />
+                    </TouchableOpacity>
+
+                </View> */}
+
+            </DrawerLayoutAndroid>
         );
     }
 }
 
-// export default createStackNavigator({
-//     Home: {
-//       screen: HomeScreen
-//     },
-//   });
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF'
+    },
+    toolbar: {
+        backgroundColor: 'red'
     },
     welcome: {
         fontSize: 30,
-        margin: 15,
+        marginLeft: 20,
         marginTop: 50,
         color: 'grey'
     },
     list: {
-        margin: 15
-    },
-    dayComplete: {
-        display: 'flex'
-    },
-    dayAndMonth: {
-        width: 50
-    },
-    day: {
-        fontSize: 40,
-        fontWeight: 'bold'
+        margin: 20
     },
     buttonPrimary: {
         padding: 20,
-        margin: 15,
+        margin: 20,
         borderRadius: 10,
         backgroundColor: 'teal'
     },
@@ -132,6 +163,12 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 20
+    },
+    socialButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
+        backgroundColor: 'white'
     }
 });
 

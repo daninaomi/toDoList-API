@@ -3,13 +3,16 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
     TextInput,
     TouchableOpacity,
     Dimensions,
-    AsyncStorage
+    ToolbarAndroid
+    // AsyncStorage
 } from 'react-native';
 
-const height = Dimensions.get('screen').height
+const height = Dimensions.get('screen').height;
+const width = Dimensions.get('screen').width;
 
 export default class Login extends Component {
     constructor() {
@@ -21,53 +24,62 @@ export default class Login extends Component {
         }
     }
 
+    // login = () => {
+
+    //     let usuario = {
+    //         email: this.state.email,
+    //         password: this.state.senha
+    //     }
+
+    //     const request = {
+    //         method: 'POST',
+    //         body: JSON.stringify(usuario),
+    //         headers: new Headers({
+    //             "Content-type": "application/json"
+    //         })
+    //     }
+
+    //     const uri = 'http://10.20.104.49:3000/users/login'
+
+    //     fetch(uri, request)
+    //         .then(response => {
+    //             if (!response.ok)
+    //                 throw new Error('Não deu pra logar ai mermao')
+
+    //             return response.json()
+    //         })
+    //         .then(json => {
+    //             // const usuario = {
+    //             //     email: this.state.email,
+    //             //     token: _id
+    //             // }
+
+    //             // AsyncStorage.setItem('usuario', JSON.stringify(usuario))
+    //             AsyncStorage.setItem('email', usuario.email)
+    //             AsyncStorage.setItem('token', json._id)
+
+    //             console.warn(json)
+    //         })
+    //         // .then(this.props.mudarTela())
+    //         .catch(error => {
+    //             console.warn('nao logou')
+    //             this.setState({ validacao: error.message })
+    //         })
+    // }
+
     login = () => {
-
-        let usuario = {
-            email: this.state.email,
-            password: this.state.senha
-        }
-
-        const request = {
-            method: 'POST',
-            body: JSON.stringify(usuario),
-            headers: new Headers({
-                "Content-type": "application/json"
-            })
-        }
-
-        const uri = 'http://10.20.104.49:3000/users/login'
-
-        fetch(uri, request)
-            .then(response => {
-                if (!response.ok)
-                    throw new Error('Não deu pra logar ai mermao')
-
-                return response.json()
-            })
-            .then(json => {
-                // const usuario = {
-                //     email: this.state.email,
-                //     token: _id
-                // }
-
-                // AsyncStorage.setItem('usuario', JSON.stringify(usuario))
-                AsyncStorage.setItem('email', usuario.email)
-                AsyncStorage.setItem('token', json._id)
-
-                console.warn(json)
-            })
-            // .then(this.props.mudarTela())
-            .catch(error => {
-                console.warn('nao logou')
-                this.setState({ validacao: error.message })
-            })
+        this.props.mudarTela()
     }
 
     render() {
         return (
             <View style={styles.container}>
-                {/* {console.warn(this.state)} */}
+
+                <Image style={styles.logo}
+                    source={require('./img/agenda.png')}
+                />
+                <Text style={styles.logoText}>my agenda</Text>
+
                 <TextInput style={styles.inputText}
                     placeholder='E-mail'
                     autoCapitalize="none"
@@ -97,16 +109,27 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: height * 1,
+        // height: height * 1,
         padding: 30,
-        justifyContent: 'center'
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF'
+    },
+    logo: {
+        marginTop: 70
+    },
+    logoText: {
+        marginBottom: 20,
+        color: 'teal',
+        fontSize: 20
     },
     inputText: {
+        width: width * 0.8,
         marginBottom: 20,
         fontSize: 18
     },
     buttonPrimary: {
-        marginTop: 100,
+        width: width * 0.8,
+        marginTop: 60,
         padding: 20,
         borderRadius: 10,
         backgroundColor: 'teal'

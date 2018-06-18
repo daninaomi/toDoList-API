@@ -40,10 +40,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'teal',
         borderRadius: 5,
-        padding: 10,
+        padding: 15,
     },
     containerText: {
-        flex: 1
+        flex: 1,
+        marginRight: 20
     },
     title: {
         fontSize: 20
