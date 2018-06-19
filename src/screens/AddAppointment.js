@@ -9,6 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+const url = 'http://10.20.107.30:3000/tasks'
 
 export default class Home extends Component {
 
@@ -26,7 +27,7 @@ export default class Home extends Component {
         //     status: this.state.status
         // 
 
-        return fetch('http://10.20.104.49:3000/tasks', {
+        return fetch( url, {
             method: 'POST',
             body: JSON.stringify({
                 name: this.state.name,

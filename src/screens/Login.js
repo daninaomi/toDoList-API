@@ -76,13 +76,15 @@ export default class Login extends Component {
             <View style={styles.container}>
 
                 <Image style={styles.logo}
-                    source={require('./img/agenda.png')}
+                    source={require('../img/agenda2.png')}
                 />
                 <Text style={styles.logoText}>my agenda</Text>
 
                 <TextInput style={styles.inputText}
                     placeholder='E-mail'
                     autoCapitalize="none"
+                    placeholderTextColor="white"
+                    underlineColorAndroid='white'
                     onChangeText={(email) => this.setState({ email })}
                     value={this.state.email}
                 />
@@ -90,6 +92,8 @@ export default class Login extends Component {
                 <TextInput style={styles.inputText}
                     placeholder='Senha'
                     autoCapitalize="none"
+                    placeholderTextColor="white"
+                    underlineColorAndroid='white'
                     onChangeText={(senha) => this.setState({ senha })}
                     secureTextEntry={true}
                     value={this.state.senha}
@@ -109,18 +113,21 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        // height: height * 1,
+        height: height * 1,
         padding: 30,
         alignItems: 'center',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: 'teal'
     },
     logo: {
         marginTop: 70
     },
     logoText: {
+        marginTop: 10,
         marginBottom: 20,
-        color: 'teal',
-        fontSize: 20
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     inputText: {
         width: width * 0.8,
@@ -132,10 +139,10 @@ const styles = StyleSheet.create({
         marginTop: 60,
         padding: 20,
         borderRadius: 10,
-        backgroundColor: 'teal'
+        backgroundColor: 'white'
     },
     textButton: {
-        color: 'white',
+        color: 'teal',
         textAlign: 'center',
         fontSize: 20
     }

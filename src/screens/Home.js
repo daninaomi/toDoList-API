@@ -11,7 +11,10 @@ import {
     Image
 } from 'react-native';
 import Appointment from '../components/Appointment'
+import SocialMediaButtons from '../components/SocialMediaButtons';
 
+// const url = 'http://192.168.1.15:3000/tasks'
+const url = 'http://10.20.107.30:3000/tasks'
 
 export default class Home extends Component {
 
@@ -24,8 +27,8 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        // return fetch('http://10.20.104.49:3000/tasks')
-        return fetch('http://192.168.1.15:3000/tasks')
+        
+        return fetch(url)
             .then(res => res.json())
             .then(json => this.setState({
                 tarefas: json
@@ -40,7 +43,7 @@ export default class Home extends Component {
 
 
     deletaItem = (idAppointment) => {
-        fetch(`http://192.168.1.15:3000/tasks/${idAppointment}`, {
+        fetch(`${url}/${idAppointment}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -112,24 +115,7 @@ export default class Home extends Component {
 
                 </ScrollView>
 
-                {/* <View style={styles.socialButtons}>
-                    <TouchableOpacity>
-                        <Image source={require('./img/i1.png')} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity>
-                        <Image source={require('./img/i2.png')} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity>
-                        <Image source={require('./img/i3.png')} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity>
-                        <Image source={require('./img/i4.png')} />
-                    </TouchableOpacity>
-
-                </View> */}
+                <SocialMediaButtons />
 
             </DrawerLayoutAndroid>
         );
@@ -163,12 +149,6 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 20
-    },
-    socialButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        padding: 10,
-        backgroundColor: 'white'
     }
 });
 

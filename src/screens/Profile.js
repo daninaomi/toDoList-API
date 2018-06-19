@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 const height = Dimensions.get('screen').height;
-const url = 'http://192.168.1.15:3000/users'
+// const url = 'http://192.168.1.15:3000/users'
+const url = 'http://10.20.107.30:3000/users'
 
 export default class Home extends Component {
 
@@ -38,19 +39,31 @@ export default class Home extends Component {
     }
 
     upload = () => {
-        const file = {
-            uri,             // e.g. 'file:///path/to/file/image123.jpg'
-            name,            // e.g. 'image123.jpg',
-            type             // e.g. 'image/jpg'
-        }
 
-        const body = new FormData()
-        body.append('file', file)
+        // CameraRoll.getPhotos({
+        //     first: 20,
+        //     assetType: 'Photos',
+        // })
+        //     .then(r => {
+        //         this.setState({ photos: r.edges });
+        //     })
+        //     .catch((err) => {
+        //         //Error Loading Images
+        //     })
 
-        fetch(url, {
-            method: 'POST',
-            body
-        })
+        // const file = {
+        //     uri,             // e.g. 'file:///path/to/file/image123.jpg'
+        //     name,            // e.g. 'image123.jpg',
+        //     type             // e.g. 'image/jpg'
+        // }
+
+        // const body = new FormData()
+        // body.append('file', file)
+
+        // fetch(url, {
+        //     method: 'POST',
+        //     body
+        // })
     }
 
 
