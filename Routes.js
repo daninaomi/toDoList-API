@@ -88,7 +88,7 @@ const RootStack = createStackNavigator(
         ProfileScreen: ProfileScreen
     },
     {
-        initialRouteName: 'LoginScreen',
+        initialRouteName: 'HomeScreen',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: 'teal',

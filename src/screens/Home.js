@@ -8,10 +8,12 @@ import {
     View,
     TouchableOpacity,
     DrawerLayoutAndroid,
-    Image
+    TouchableHighlight,
+    Modal
 } from 'react-native';
 import Appointment from '../components/Appointment'
-import SocialMediaButtons from '../components/SocialMediaButtons';
+import SocialMediaButtons from '../components/SocialMediaButtons'
+import ModalBox from '../components/Modal'
 
 // const url = 'http://192.168.1.15:3000/tasks'
 const url = 'http://10.20.107.30:3000/tasks'
@@ -22,12 +24,13 @@ export default class Home extends Component {
         super()
         this.state = {
             tarefas: [],
+            modalVisible: false,
             msg: ''
         }
     }
 
     componentDidMount() {
-        
+
         return fetch(url)
             .then(res => res.json())
             .then(json => this.setState({
@@ -64,6 +67,11 @@ export default class Home extends Component {
                 })
             })
     }
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
+
 
     render() {
 
@@ -112,6 +120,34 @@ export default class Home extends Component {
                         onPress={this.props.mudarTela}>
                         <Text style={styles.textButton}>Novo Compromisso</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonPrimary}
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}>
+                        <Text>Show Modal</Text>
+                    </TouchableOpacity >
+
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            alert('Modal has been closed.');
+                        }}>
+                        <View style={{ marginTop: 22 }}>
+                            <View>
+                                <Text>Hello World!</Text>
+
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}>
+                                    <Text>Hide Modal</Text>
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                    </Modal>
 
                 </ScrollView>
 
