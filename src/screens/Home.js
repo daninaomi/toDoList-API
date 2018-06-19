@@ -9,11 +9,14 @@ import {
     TouchableOpacity,
     DrawerLayoutAndroid,
     TouchableHighlight,
-    Modal
+    Modal,
+    Dimensions
 } from 'react-native';
 import Appointment from '../components/Appointment'
 import SocialMediaButtons from '../components/SocialMediaButtons'
 import ModalBox from '../components/Modal'
+
+const height = Dimensions.get('screen').height;
 
 // const url = 'http://192.168.1.15:3000/tasks'
 const url = 'http://10.20.107.30:3000/tasks'
@@ -97,6 +100,13 @@ export default class Home extends Component {
 
                 <ScrollView style={styles.container}>
 
+                    <TouchableOpacity style={styles.buttonPrimary}
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}>
+                        <Text style={styles.textButton}>Show Modal</Text>
+                    </TouchableOpacity >
+
                     <Text style={styles.welcome}>
                         Bem-vindo(a) !
                     </Text>
@@ -121,30 +131,24 @@ export default class Home extends Component {
                         <Text style={styles.textButton}>Novo Compromisso</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonPrimary}
-                        onPress={() => {
-                            this.setModalVisible(true);
-                        }}>
-                        <Text>Show Modal</Text>
-                    </TouchableOpacity >
 
                     <Modal
-                        animationType="slide"
-                        transparent={false}
+                        animationType="fade"
+                        transparent={true}
                         visible={this.state.modalVisible}
                         onRequestClose={() => {
                             alert('Modal has been closed.');
                         }}>
-                        <View style={{ marginTop: 22 }}>
-                            <View>
-                                <Text>Hello World!</Text>
-
-                                <TouchableHighlight
+                        <View style={styles.backModal}>
+                            <View style={styles.boxModal}>
+                                <TouchableHighlight style={styles.deleteButton}
                                     onPress={() => {
                                         this.setModalVisible(!this.state.modalVisible);
                                     }}>
-                                    <Text>Hide Modal</Text>
+                                    <Text style={{color: 'white'}}>X</Text>
                                 </TouchableHighlight>
+                                
+                                <Text>Hello World!</Text>
                             </View>
                         </View>
                     </Modal>
@@ -163,10 +167,8 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FFFFFF'
     },
-    toolbar: {
-        backgroundColor: 'red'
-    },
     welcome: {
+        fontFamily: 'Lato-Bold',
         fontSize: 30,
         marginLeft: 20,
         marginTop: 50,
@@ -185,6 +187,27 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 20
+    },
+    backModal: {
+        height: height,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0, 0.5)'
+    },
+    boxModal: {
+        width: 200,
+        padding: 20,
+        backgroundColor: 'white'
+    },
+    deleteButton: {
+        position: 'absolute',
+        right: 20,
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'teal',
+        borderRadius: 100
     }
 });
 
