@@ -8,18 +8,16 @@ import {
     View,
     TouchableOpacity,
     DrawerLayoutAndroid,
-    TouchableHighlight,
-    Modal,
     Dimensions
 } from 'react-native';
 import Appointment from '../components/Appointment'
 import SocialMediaButtons from '../components/SocialMediaButtons'
-import ModalBox from '../components/Modal'
+import ModalBox from '../components/ModalBox'
 
 const height = Dimensions.get('screen').height;
 
 // const url = 'http://192.168.1.15:3000/tasks'
-const url = 'http://10.20.107.30:3000/tasks'
+const url = 'http://10.20.104.193:3000/tasks'
 
 export default class Home extends Component {
 
@@ -100,12 +98,16 @@ export default class Home extends Component {
 
                 <ScrollView style={styles.container}>
 
-                    <TouchableOpacity style={styles.buttonPrimary}
+                    {/* <TouchableOpacity style={styles.buttonPrimary}
                         onPress={() => {
-                            this.setModalVisible(true);
+                            this.setState({ modalVisible: true })
                         }}>
                         <Text style={styles.textButton}>Show Modal</Text>
-                    </TouchableOpacity >
+                    </TouchableOpacity > 
+
+                    <ModalBox visible={this.state.modalVisible}
+                        fecharModal={() => this.setState({ modalVisible: false })}
+                    />*/}
 
                     <Text style={styles.welcome}>
                         Bem-vindo(a) !
@@ -124,34 +126,12 @@ export default class Home extends Component {
                         }
                     />
 
-                    <Text style={styles.day}>{this.state.msg}</Text>
+                    {/* <Text style={styles.day}>{this.state.msg}</Text> */}
 
                     <TouchableOpacity style={styles.buttonPrimary}
                         onPress={this.props.mudarTela}>
                         <Text style={styles.textButton}>Novo Compromisso</Text>
                     </TouchableOpacity>
-
-
-                    <Modal
-                        animationType="fade"
-                        transparent={true}
-                        visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            alert('Modal has been closed.');
-                        }}>
-                        <View style={styles.backModal}>
-                            <View style={styles.boxModal}>
-                                <TouchableHighlight style={styles.deleteButton}
-                                    onPress={() => {
-                                        this.setModalVisible(!this.state.modalVisible);
-                                    }}>
-                                    <Text style={{color: 'white'}}>X</Text>
-                                </TouchableHighlight>
-                                
-                                <Text>Hello World!</Text>
-                            </View>
-                        </View>
-                    </Modal>
 
                 </ScrollView>
 

@@ -99,6 +99,7 @@ export default class Login extends Component {
                     value={this.state.senha}
                 />
 
+                {/* <TouchableOpacity style={[styles.buttonPrimary, styles.buttonSecondary]} */}
                 <TouchableOpacity style={styles.buttonPrimary}
                     onPress={this.login}>
                     <Text style={styles.textButton}>Login</Text>

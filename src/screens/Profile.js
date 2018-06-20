@@ -11,7 +11,7 @@ import {
 
 const height = Dimensions.get('screen').height;
 // const url = 'http://192.168.1.15:3000/users'
-const url = 'http://10.20.107.30:3000/users'
+const url = 'http://10.20.104.193:3000/users'
 
 export default class Home extends Component {
 

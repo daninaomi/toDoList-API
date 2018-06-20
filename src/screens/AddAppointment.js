@@ -9,7 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-const url = 'http://10.20.107.30:3000/tasks'
+const url = 'http://10.20.104.193:3000/tasks'
 
 export default class Home extends Component {
 
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         margin: 30
     },
     inputText: {
-        marginTop: 200,
+        marginTop: 170,
         marginBottom: 50,
         fontSize: 20
     },
